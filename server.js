@@ -38,10 +38,12 @@ function turnOff(){
 
 function setupServer(){
   http.createServer(function (req, res) {
-    var parsedUrl = url.parse(req.url);
-    if(parsedUrl.path === '/pushVolume'){
+    var parsedUrl = url.parse(req.url, true);
+    console.log(parsedUrl);
+    if(parsedUrl.pathname === '/pushVolume'){
+      console.log('bytes', parsedUrl.query.bytes);
       turnOn();
-      setTimeout(turnOff, 3000);
+      setTimeout(turnOff, 1000);
     }
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('done\n');
