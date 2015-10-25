@@ -19,6 +19,7 @@ var pumpTimeout = null;
 var lastPush = Date.now();
 var runningTime = 0;
 var volumeToTimeRelation = 400;
+var miniumTime = 500;
 
 var co2ConversionRate = 7.22;
 
@@ -67,7 +68,7 @@ function setupServer(){
         var timeDelta = Date.now() - lastPush;
         var restTime = Math.max(runningTime - timeDelta, 0);
         turnOn();
-        time = volume * volumeToTimeRelation + restTime;
+        time = Math.max( volume * volumeToTimeRelation + restTime, miniumTime );
         pumpTimeout = setTimeout(turnOff, time);
         lastPush = Date.now();
         runningTime = time;
